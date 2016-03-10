@@ -1,22 +1,27 @@
 # Get Jobs and Insert Applications
 
-This example shows a simple application with an endpoint for recieving RolePoint Connect webhook events and making job applications.
+This example receives job postings & submits candidates using Connect.
 
 ## How to run this example
 
-You will need to expose the example application so that RolePoint Connect can communicate with it. For this we recommend using [ngrok](https://ngrok.com). For the purposes of this guide, we will assume you are using ngrok and have successfully installed it.
+You will need a sandbox account for [Connect](http://www.rolepoint.com/ats-crm-middleware.html).
 
-Our application will by default be exposed on port 5000, so we start ngrok up to expose the local server:
+Connect sends jobs to client applications using webhooks. For the example to receive these webhooks it will need to be exposed to the internet. We recommend using [ngrok](https://ngrok.com) for this - it can expose a port on your local machine to the internet, allowing you to receive the webhooks sent from connect. For the purposes of this guide, we will assume you are using ngrok and have successfully installed it.
+
+The example will be exposed on port 5000, so we start ngrok up to expose the local server:
 
     > ngrok http 5000
 
 The output from the above command will include a line which says `Forwarding`, with a URL which looks like `https://2fb65876.ngrok.io`. Note that yours will have a different subdomain. 
 
-You will also need a sandbox account for [RolePoint Connect](http://www.rolepoint.com/ats-crm-middleware.html).
+You will need to edit `app.py` and change the settings on lines 27-30. 
 
-Once you have obtained a sandbox account, you will need to edit `app.py` and change the settings on lines 27-33. `app.config['SERVER_NAME']` should be set to the ngrok URL from above, from the subdomain onwards. E.g `2fb65876.ngrok.io`. The other settings should be replaced with your RolePoint Connect username/password and ID respectively.
+- `username` should be set to your Connect username
+- `password` should be set to your Connect password
+- `connector_id` should be set to your Connect connector ID
+- `username` should be set to the ngrok URL from above, from the subdomain onwards. E.g `2fb65876.ngrok.io`
 
-You will need to install the requirements for this example:
+You will need to install the requirements for this example, we recommend using [virtualenv](http://virtualenv.readthedocs.org/en/latest/) when installing dependencies. Then:
 
     > pip install -r requirements.txt
 
@@ -24,14 +29,14 @@ Now you just need to run:
 
     > python app.py
 
-You can now open a browser and visit your ngrok URL. You should see a very basic HTML form. 
+You can now open a browser and visit your ngrok URL. You should see a very basic HTML form, but the job listing is empty.
 
-However you will also need to populate the Jobs dropdown on this page. Normally RolePoint Connect would automatically send you your job listings from your ATS, for this example application however we will need to push RolePoint Connect to send us an example webhook. To do this you can run the following command, (replacing the ngrok URL in the payload with your ngrok URL):
+To populate the job listing we can get connect to send us a test job via the webhooks. To do this, in your browser visit `<your_ngrok_url>/test_job_webhook`.
 
-    > curl -H "Content-Type: application/json" -X POST -d '{"webhook_url": "http://2fb65876.ngrok.io/webhook_url"' http://api.rolepoint-connect.com/test_webhook/send_job_add_event
+Normally connect would send us jobs automatically, but as you're using a sandbox account this doesn't happen.
 
 If you refresh the page, you should now see a job in the dropdown, you can now go ahead and make a Job Application!
 
-Once you've made your Job Application you will be taken to a page showing all of the Job Applications made on your example application. The one you've just made should be listed here, with a status of `In Progress`. Once RolePoint Connect has finished processing your Job Application, the status will be changed to `Complete`, and `Candidate ID` and `Application Ids` should be populated! 
+Once you've made your Job Application you will be taken to a page showing all of the Job Applications made on your example application. The one you've just made should be listed here, with a status of `In Progress`. Once Connect has finished processing your Job Application, the status will be changed to `Complete`, and `Candidate ID` and `Application Ids` should be populated! 
 
-Congratulations, you've just made your first Job Application!
+Congratulations, you've just made your first job application!

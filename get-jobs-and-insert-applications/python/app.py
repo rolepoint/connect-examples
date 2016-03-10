@@ -1,43 +1,48 @@
 """
-A simple application with an endpoint for recieving RolePoint Connect webhook
+A simple application with an endpoint for recieving Connect webhook
 events and making job applications.
 
 We define:
 - An endpoint for handling incoming web hooks, so we can save jobs
 - A view for applying for jobs
-- A view for handling job applications and sending them on to RolePoint Connect
-- A callback endpoint for RolePoint Connect to call back to once the
+- A view for handling job applications and sending them on to Connect
+- A callback endpoint for Connect to call back to once the
   application has finished processing.
 - A view for listing all current job applications.
 """
+import sys
+
 from flask import Flask
 from flask import redirect, request, render_template_string
 from flask import url_for
 import requests
 from requests.auth import HTTPBasicAuth
 
-BASE_URL = 'https://api.rolepoint-connect.com/v1/{}'
-
 # Setup our Flask application
 app = Flask(__name__)
 
-# Create our config with RolePoint Connect details
+# Create our config with Connect details
 # NOTE: You must fill in this section with YOUR details in order to run this
 #       example application
-app.config['SERVER_NAME'] = 'Replace Me with your ngrok URL'
 
 CONFIG = {
-    'rolepoint_connect_username': 'Replace with RolePoint Connect username',
-    'rolepoint_connect_password': 'Replace with RolePoint Connect password',
-    'rolepoint_connect_connector_id': 'Replace with RolePoint Connect ID'
+    'username': 'Replace with Connect username',
+    'password': 'Replace with Connect password',
+    'connector_id': 'Replace with Connect ID',
+    'ngrok_url': 'Replace Me with your ngrok URL'
 }
 
-CONFIG['rolepoint_connect_base_url'] = BASE_URL.format(
-    CONFIG['rolepoint_connect_connector_id']
+app.config['SERVER_NAME'] = CONFIG['ngrok_url']
+
+CONNECT_URL = 'https://api.rolepoint-connect.com/v1/{}'.format(
+    CONFIG['connector_id']
 )
 
-AUTH = HTTPBasicAuth(CONFIG['rolepoint_connect_username'],
-                     CONFIG['rolepoint_connect_password'])
+JOB_ADD_URL = 'http://{}/test_webhook/send_job_add_event'.format(
+    CONFIG['ngrok_url']
+)
+
+AUTH = HTTPBasicAuth(CONFIG['username'], CONFIG['password'])
 
 # We will store our jobs as a mapping of the ID of the job in the ATS, to the
 # title of the Job.
@@ -49,8 +54,8 @@ JOBS = {}
 # {'job_id': ID of the job in the ATS,
 #  'candidate': {'first_name': string, 'last_name': string, 'email': string},
 #  'status': In Progress,Complete or Failed,
-#  'candidate_id': The ID of the Candidate in RolePoint Connect,
-#  'application_ids': The ID's of the applications in RolePoint Connect.}
+#  'candidate_id': The ID of the Candidate in Connect,
+#  'application_ids': The ID's of the applications in Connect.}
 #
 # NOTE: Restarting the server will empty this list of job applications.
 JOB_APPLICATIONS = []
@@ -59,7 +64,7 @@ JOB_APPLICATIONS = []
 @app.route('/webhook_url', methods=['POST'])
 def jobs_webhook_handler():
     """
-    An endpoint for handling RolePoint Connect webhook events. Only handles
+    An endpoint for handling Connect webhook events. Only handles
     `job_add` events, as that is all we are interested in for this example
     application.
     """
@@ -74,8 +79,8 @@ def jobs_webhook_handler():
 @app.route('/application_processed_callback/<int:app_id>', methods=['POST'])
 def application_processed_callback(app_id):
     """
-    An endpoint for handling RolePoint Connect application callbacks.
-    Here we update our candidate application once RolePoint Connect has
+    An endpoint for handling Connect application callbacks.
+    Here we update our candidate application once Connect has
     processed them.
     """
     status = request.json['status']
@@ -116,8 +121,8 @@ def render_application_form():
 @app.route('/make_application', methods=['POST'])
 def make_application():
     """
-    Save an application to our JOB_APPLICATIONS and send it to RolePoint
-    Connect for processing.
+    Save an application to our JOB_APPLICATIONS and send it to Connect for
+    processing.
     """
     # Create our application from the submitted form data
     candidate = {
@@ -149,14 +154,11 @@ def make_application():
             app_id=application_id, _external=True
         )
     }
-    # Send the application to RolePoint Connect for processing.
-    requests.post(CONFIG['rolepoint_connect_base_url'] + '/applications',
+    # Send the application to Connect for processing.
+    requests.post(CONNECT_URL + '/applications',
                   json=payload, auth=AUTH, headers=headers)
 
     return redirect('show_applications')
-
-
-
 
 
 @app.route('/show_applications')
@@ -173,7 +175,7 @@ def show_applications():
           <th>Last Name</th>
           <th>Email Address</th>
           <th>Job Title Applied For</th>
-          <th>Application Status in RolePoint Connect</th>
+          <th>Application Status in Connect</th>
           <th>ATS ID</th>
           <th>Application ID's</th>
         </tr>
@@ -193,5 +195,23 @@ def show_applications():
     """, job_applications=JOB_APPLICATIONS, jobs=JOBS)
 
 
+@app.route('/test_job_webhook')
+def populate_job():
+    """
+    Sends a request to connect to send a test webhook
+    """
+    requests.post(CONNECT_URL + 'test_webhook/send_job_add_event',
+                  json={'webhook_url': JOB_ADD_URL})
+    redirect('/')
+
 if __name__ == "__main__":
+    if CONFIG == {
+        'username': 'Replace with Connect username',
+        'password': 'Replace with Connect password',
+        'connector_id': 'Replace with Connect ID',
+        'ngrok_url': 'Replace Me with your ngrok URL'
+    }:
+        print("You must configure the CONFIG with your settings to run the "
+              "example.")
+        sys.exit()
     app.run()
