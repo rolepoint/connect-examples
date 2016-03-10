@@ -28,7 +28,7 @@ You can now open a browser and visit your ngrok URL. You should see a very basic
 
 However you will also need to populate the Jobs dropdown on this page. Normally RolePoint Connect would automatically send you your job listings from your ATS, for this example application however we will need to push RolePoint Connect to send us an example webhook. To do this you can run the following command, (replacing the ngrok URL in the payload with your ngrok URL):
 
-    > curl -H "Content-Type: application/json" -X POST -d '{"webhook_url": "http://2fb65876.ngrok.io/webhook_url"' http://localhost:5060/test_webhook/send_job_add_event
+    > curl -H "Content-Type: application/json" -X POST -d '{"webhook_url": "http://2fb65876.ngrok.io/webhook_url"' http://api.rolepoint-connect.com/test_webhook/send_job_add_event
 
 If you refresh the page, you should now see a job in the dropdown, you can now go ahead and make a Job Application!
 
