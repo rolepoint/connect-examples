@@ -1,0 +1,3 @@
+Flask==0.10.1
+names==0.3.0
+requests==2.9.1
