@@ -2,9 +2,12 @@
 
 This example receives job postings & submits candidates using Connect.
 
+It is a fully working application of the example shown at https://rolepoint-connect.readme.io/docs/get-jobs-and-insert-applications.
+
 ## How to run this example
 
-You will need a sandbox account for [Connect](http://www.rolepoint.com/ats-crm-middleware.html).
+You will need a sandbox account for [Connect](
+https://rolepoint-connect.readme.io/docs/sandbox-connector).
 
 Connect sends jobs to client applications using webhooks. For the example to receive these webhooks it will need to be exposed to the internet. We recommend using [ngrok](https://ngrok.com) for this - it can expose a port on your local machine to the internet, allowing you to receive the webhooks sent from connect. For the purposes of this guide, we will assume you are using ngrok and have successfully installed it.
 
