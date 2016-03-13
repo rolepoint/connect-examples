@@ -2,9 +2,11 @@
 
 This example shows how we can search for Candidates using Connect, then retrieve their details from the remote ATS.
 
+It is a fully working application of the example shown at https://rolepoint-connect.readme.io/docs/find-candidates-and-retrieve-their-details.
+
 ## How to run this example
 
-You will need a sandbox account for [Connect](http://www.rolepoint.com/ats-crm-middleware.html).
+You will need a sandbox account for [Connect](https://rolepoint-connect.readme.io/docs/sandbox-connector).
 
 for this example to run it will need to be exposed to the internet. This is because it takes advantage of the callback functionality of Connect, so Connect needs to be ale to communicate back to the example application. We recommend using [ngrok](https://ngrok.com) for this - it can expose a port on your local machine to the internet, allowing you to receive the webhooks sent from connect. For the purposes of this guide, we will assume you are using ngrok and have successfully installed it.
 

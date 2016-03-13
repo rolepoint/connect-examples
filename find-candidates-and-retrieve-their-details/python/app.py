@@ -284,4 +284,4 @@ if __name__ == "__main__":
               "example.")
         sys.exit()
 
-    app.run(debug=True)
+    app.run()
