@@ -11,7 +11,6 @@ We define:
 """
 import json
 from random import choice
-from string import ascii_lowercase, digits
 import sys
 
 from flask import Flask
@@ -63,12 +62,12 @@ def populate_candidates():
     candidates.
     """
     for i in range(5):
+        last_name = names.get_last_name()
         candidate = {
             'first_name': names.get_first_name(),
-            'last_name': names.get_last_name(),
-            'email': '{}@example.com'.format(
-                ''.join(choice(ascii_lowercase + digits) for _ in range(10))
-            )
+            'last_name': last_name,
+            'email': '{}{}@example.com'.format(last_name,
+                                               choice(range(100)))
         }
         candidate_data = {
             # A random job_id will be fine as we are in a sandbox environment
