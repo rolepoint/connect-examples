@@ -31,12 +31,12 @@ Now you just need to run:
 
 You can now open a browser and visit your ngrok URL. On the first visit to this URL the example application is seeded with 5 candidates, so it may take a few seconds to load.
 
-Once the page has loaded you should see 3 sections, the first section is `Created Candidates`, which is a table containing the 5 candidates we have just created. All should show their creation status as being `In Progress`. We have asked Connect to create these Candidates, and are just waiting to hear back. You can refresh the page until they show as `Complete`, which means they have been created in Connect, and we can now search for them by the shown email address.
+Once the page has loaded you should see 3 sections, the first section is `Created Candidates`, which is a table containing the 5 candidates we have just created. All should show their creation status as being `In Progress`. We have asked Connect to create these Candidates, so now we're waiting for the callback result. You can refresh the page until they show as `Complete`, which means they have been created in Connect and the sandbox ATS, and we can now search for them by the shown email address.
 
-The next section is `Searches`, which is a table showing any searches we have initiated in Connect using the `find_candidates` funtionailty. The final section is `Search for Candidate by email`, which shows a text box and a button. Any of the candidates who have been created in your sandbox Connector can be searched for here. 
+The next section is `Searches`, which is a table showing any searches we have initiated in Connect using the `find_candidates` functionailty. The final section is `Search for Candidate by email`, which shows a text box and a button. Any of the candidates who have been created in your sandbox Connector can be searched for here. 
 
 Try copy and pasting one of the example email addresses from the top of the page into the text box then clicking `Submit`. The page should refresh and the email address you are searching for should have an entry in the `Searches` table, with a `Search Status` of `In Progress`. We are waiting for Connect to call back to us with the result of the search. 
 
 Try refreshing the page until the `Search Status` shows as `Complete`. You should now see an entry in the `Candidate ID's` column for our search. This will be an integer of the Candidate ID in Connect. If you click the entry, we initiate a `get_candidate` query to Connect and the page should refresh. You will now see that the `Get Candidate Status` column is showing as `In Progress`. 
 
-We are again waiting for a callback for Connect, so you can refresh the page until the `Get Candidate Status` column shows as `Complete`. At this stage you should see some JSON data populating the `Get Candidate Result` column, containing the details of our queried for Candidate.
+We are again waiting for a callback for Connect, so you can refresh the page until the `Get Candidate Status` column shows as `Complete`. At this stage you should see some JSON data populating the `Get Candidate Result` column, containing the details of the Candidate we queried for.
