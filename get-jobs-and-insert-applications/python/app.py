@@ -95,8 +95,8 @@ def application_processed_callback(app_id):
 @app.route('/')
 def render_application_form():
     if not JOBS:
-        requests.get(
-            CONNECT_URL + '/test_webhook/send_job_add_event',
+        requests.post(
+            CONNECT_URL + '/examples/send-job-add-event',
             json={
                 'webhook_url': (
                     'http://{}/webhook_url'.format(CONFIG['ngrok_url'])
