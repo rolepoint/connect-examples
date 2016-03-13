@@ -30,7 +30,7 @@ CONFIG = {
     'username': 'Replace with Connector username',
     'password': 'Replace with Connector password',
     'connector_id': 'Replace with Connector ID',
-    'ngrok_url': 'Replace Me with your ngrok URL'
+    'ngrok_url': 'Replace Me with your ngrok URL (e.g 38gbvy74.ngrok.io)'
 }
 
 app.config['SERVER_NAME'] = CONFIG['ngrok_url']
@@ -278,7 +278,7 @@ if __name__ == "__main__":
         'username': 'Replace with Connector username',
         'password': 'Replace with Connector password',
         'connector_id': 'Replace with Connector ID',
-        'ngrok_url': 'Replace Me with your ngrok URL'
+        'ngrok_url': 'Replace Me with your ngrok URL (e.g 38gbvy74.ngrok.io)'
     }:
         print("You must configure the CONFIG with your settings to run the "
               "example.")
