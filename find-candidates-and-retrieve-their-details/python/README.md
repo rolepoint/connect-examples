@@ -1,6 +1,6 @@
 # Find Candidates and Retrieve their details.
 
-This example shows how we can search for Candidates using Connect, then retrieve their details from the remote ATS.
+This example shows how we can search for Candidates using Connect, then retrieve their details from the remote ATS. [Live Demo](https://rolepoint-find-candidates.herokuapp.com/)
 
 It is a fully working application of the example shown at https://rolepoint-connect.readme.io/docs/find-candidates-and-retrieve-their-details.
 
