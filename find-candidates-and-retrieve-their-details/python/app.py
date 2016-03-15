@@ -283,4 +283,9 @@ if __name__ == "__main__":
               "example.")
         sys.exit()
 
+    if 'http' in CONFIG['ngrok_url']:
+        print("Include the ngrok name without 'http(s)' in the ngrok_url "
+              "field.")
+        sys.exit()
+
     app.run()

@@ -64,7 +64,7 @@ def jobs_webhook_handler():
     """
     for event in request.get_json(force=True):
         if event['event'] == 'job_add':
-                JOBS[event['data']['ats_id']] = event['data']['title']
+            JOBS[event['data']['ats_id']] = event['data']['title']
 
     # We return an empty response to Connect as it will retry webhooks
     # otherwise.
@@ -225,5 +225,10 @@ if __name__ == "__main__":
     }:
         print("You must configure the CONFIG with your settings to run the "
               "example.")
+        sys.exit()
+
+    if 'http' in CONFIG['ngrok_url']:
+        print("Include the ngrok name without 'http(s)' in the ngrok_url "
+              "field.")
         sys.exit()
     app.run()
