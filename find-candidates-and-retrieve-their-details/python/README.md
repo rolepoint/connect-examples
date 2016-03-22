@@ -8,7 +8,7 @@ It is a fully working application of the example shown at https://rolepoint-conn
 
 You will need a sandbox account for [Connect](https://rolepoint-connect.readme.io/docs/sandbox-connector).
 
-For this example to run it will need to be exposed to the internet. This is because it takes advantage of the callback functionality of Connect, so Connect needs to be ale to communicate back to the example application. We recommend using [ngrok](https://ngrok.com) for this - it can expose a port on your local machine to the internet, allowing you to receive the webhooks sent from connect. For the purposes of this guide, we will assume you are using ngrok and have successfully installed it.
+For this example to run it will need to be exposed to the internet. This is because it takes advantage of the callback functionality of Connect, so Connect needs to be able to communicate back to the example application. We recommend using [ngrok](https://ngrok.com) for this - it can expose a port on your local machine to the internet, allowing you to receive the webhooks sent from connect. For the purposes of this guide, we will assume you are using ngrok and have successfully installed it.
 
 The example will be exposed on port 5000, so we start ngrok up to expose the local server:
 
