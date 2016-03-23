@@ -3,7 +3,7 @@
 This example receives job postings & submits candidates using Connect.
 
 It is a fully working application of the example shown at
-https://rolepoint-connect.readme.io/docs/get-jobs-and-insert-applications.
+https://rolepoint-connect.readme.io/docs/get-jobs-and-insert-candidates.
 
 ## How to run this example
 
@@ -27,7 +27,7 @@ Now you can get a sandbox account for Connect, using
 `https://<subdomain>.ngrok.io/webhook_url` as your webhook URL.
 [Steps to get one here](https://rolepoint-connect.readme.io/docs/sandbox-connector).
 
-You will need to edit `app.py` and change the settings on lines 27-30. 
+You will need to edit `app.py` and change the settings on lines 27-30.
 
 - `username` should be set to your Connect username
 - `password` should be set to your Connect password
