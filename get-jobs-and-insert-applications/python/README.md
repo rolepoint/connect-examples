@@ -6,15 +6,15 @@ It is a fully working application of the example shown at https://rolepoint-conn
 
 ## How to run this example
 
-You will need a sandbox account for Connect. [Get one here](https://rolepoint-connect.readme.io/docs/sandbox-connector).
-
 Connect sends jobs to client applications using webhooks. For the example to receive these webhooks it will need to be exposed to the internet. We recommend using [ngrok](https://ngrok.com) for this - it can expose a port on your local machine to the internet, allowing you to receive the webhooks sent from connect. For the purposes of this guide, we will assume you are using ngrok and have successfully installed it.
 
 The example will be exposed on port 5000, so we start ngrok up to expose the local server:
 
     > ngrok http 5000
 
-The output from the above command will include a line which says `Forwarding`, with a URL which looks like `https://2fb65876.ngrok.io`. Note that yours will have a different subdomain. 
+The output from the above command will include a line which says `Forwarding`, with a URL which looks like `https://2fb65876.ngrok.io`. Note that yours will have a different subdomain.
+
+Now you can get a sandbox account for Connect, using `https://2fb65876.ngrok.io/webhook_url` as your webhook URL. [Steps to get one here](https://rolepoint-connect.readme.io/docs/sandbox-connector).
 
 You will need to edit `app.py` and change the settings on lines 27-30. 
 
