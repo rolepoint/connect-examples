@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+def check_config_setup_correctly()
+  require_relative '../config/application'
+
+  ["username", "password", "connector_id", "ngrok_url"].each do |att_name|
+    if Rails.application.config.connector[att_name] == ""
+      puts att_name + " was not set in your configuration"
+      exit
+    end
+  end
+end
+
+
+begin
+  load File.expand_path('../spring', __FILE__)
+rescue LoadError => e
+  raise unless e.message.include?('spring')
+end
+APP_PATH = File.expand_path('../config/application', __dir__)
+require_relative '../config/boot'
+require 'rails/commands'
+
+
+check_config_setup_correctly()
