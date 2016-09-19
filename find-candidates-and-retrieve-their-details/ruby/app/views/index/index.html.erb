@@ -1,0 +1,52 @@
+<html>
+  <div class="container-fluid">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <h1>Created Candidates</h1>
+    <table class="table">
+      <tr>
+        <th>Candidate Email</th>
+        <th>Creation Status</th>
+      </tr>
+      <% @candidates.each do |candidate| %>
+      <tr>
+        <td><%= candidate['email'] %></td>
+        <td><%= candidate['status'] %></td>
+      </tr>
+      <% end %>
+    </table>
+    <br><br><br>
+    <h1>Searches</h1>
+    <table class="table">
+      <tr>
+        <th>Search Query</th>
+        <th>Search Status</th>
+        <th>Candidate ID's</th>
+        <th>Get Candidate Status</th>
+        <th>Get Candidate Result</th>
+      </tr>
+      <% @searches.each do |search| %>
+      <tr>
+        <td><%= search['query'] %></td>
+        <td><%= search['search_status'] %></td>
+        <td>
+	  <% if search['candidate_ids'] %>
+            <% search['candidate_ids'].each_with_index do |candidate_id, index| %>
+	      <%= link_to candidate_id, get_candidate_path(index, candidate_id) %><br>
+	    <% end %>
+	  <% end %>
+        </td>
+        <td><%= search['get_candidate_status'] %></td>
+        <td><%= search['candidate_details'] %></td>
+      </tr>
+      <% end %>
+    </table>
+    <br><br><br>
+    <h2>Search for Candidate by email</h2>
+    <form action="search" method="post" class="form-inline">
+      <div class="form-group">
+        <input type="text" class="form-control" name="query">
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+  </div>
+</html>
